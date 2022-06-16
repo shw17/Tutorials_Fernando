@@ -16,3 +16,29 @@
     # leave out the  bucket name
 
 # note that the function takes in a dataframe
+
+
+import numpy as np
+import pandas as pd
+import csv
+from utilities.athena import AthenaDAO
+from utilities.aws_s3 import AWSS3
+
+
+region = "us-east-1"
+database = "google_analytics"
+bucket = "playwire-analytics"
+
+# query Athena table
+que = """
+select countryisocode, date,  avg(users) as average_users, avg(sessions) as average_sessions from ga_ramp_daily
+group by countryisocode, date
+order by countryisocode, date
+
+limit 1000
+"""
+athena = AthenaDAO(region, database, bucket)
+file = athena.execute(query=que, download=True)
+
+awss3 = AWSS3()
+awss3.save_as_csv(df=file, bucket=bucket, path='shuwen-dev/fern_solution_tutorial2/')
