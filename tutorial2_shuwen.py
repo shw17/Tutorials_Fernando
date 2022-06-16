@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 import csv
-from athena import AthenaDAO
-from AWSS3 import AWSS3
+from utilities.athena import AthenaDAO
+from utilities.aws_s3 import AWSS3
 
 
 region = "us-east-1"
@@ -36,4 +36,4 @@ f.close()
 # upload to s3
 ana = pd.read_csv('tutorial2.csv')
 awss3 = AWSS3()
-awss3.save_as_csv(df=ana, path='s3://playwire-analytics/shuwen-dev/tutorial2/')
+awss3.save_as_csv(df=ana, bucket=bucket, path='shuwen-dev/tutorial2/')
