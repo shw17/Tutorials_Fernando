@@ -22,5 +22,5 @@ while start_date <= end_date:
     athena = AthenaDAO(region, database, bucket)
     file = athena.execute(query=que, download=True)
     awss3 = AWSS3()
-    awss3.save_as_csv(df=file, bucket=bucket, path=f"shuwen-dev/tutorial3/'{start_date}'/")
+    awss3.save_as_csv(df=file, bucket=bucket, path=f"shuwen-dev/tutorial3/{start_date}/")
     start_date += gap
