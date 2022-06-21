@@ -1,6 +1,6 @@
 import datetime
 from utilities.athena import AthenaDAO
-from utilities.AWSS3 import AWSS3
+from utilities.aws_s3 import AWSS3
 
 start_date = datetime.date(2021, 7, 8)
 end_date = datetime.date(2021, 7, 14)
@@ -15,7 +15,7 @@ while start_date <= end_date:
     SELECT site, AVG(ad_requests) AS ave_ad_requests,
       AVG(impressions) AS ave_impressions,
       AVG(revenue) AS ave_revenue FROM triplelift.triplelift
-    WHERE date = date {start_date}
+    WHERE date = date '{start_date}'
     GROUP BY site
     LIMIT 1000
     """
